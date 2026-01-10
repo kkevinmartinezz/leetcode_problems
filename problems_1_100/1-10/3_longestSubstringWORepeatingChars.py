@@ -1,3 +1,6 @@
+'''
+GOAL: Given a string s, find the length of the longest substring without duplicate characters.
+'''
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         #Sliding window technique: cut off left most char
@@ -5,7 +8,9 @@ class Solution:
         l = 0 #position of left most char without repetition
         length = 0
         for r in range(len(s)):
-            while s[r] in charset: #if right most char already exists in set, keep moving left cursor over by one until not the case
+            # if right most char already exists in set, keep moving left cursor over by one until not the case
+            # This will ultimately skip subsets that already have duplicate chars
+            while s[r] in charset:
                 charset.remove(s[l])
                 l += 1
             charset.add(s[r])
