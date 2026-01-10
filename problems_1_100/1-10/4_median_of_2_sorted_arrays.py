@@ -25,13 +25,10 @@ class Solution:
         merged.extend(nums1[i:])
         merged.extend(nums2[j:])
         half = len(merged) / 2
-        median = 0
         if len(merged) % 2 == 0:
             return (float(merged[int(half)- 1]) + float(merged[int(half)])) / 2
         else:
-            # print(half)
             half = math.ceil(half)
-            # print(half)
             return float(merged[half - 1])
 
 
