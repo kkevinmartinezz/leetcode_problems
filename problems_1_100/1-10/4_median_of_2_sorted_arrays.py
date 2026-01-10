@@ -3,10 +3,12 @@ GOAL: Given two sorted arrays nums1 and nums2 of size m and n respectively,
 return the median of the two sorted arrays.
 
 The overall run time complexity should be O(log (m+n)).
+
+NOTE: Could be made faster, comments said something about binary search
+Following code runs in O(m+n)
 '''
 
-#NOTE: Could be made faster, comments said something about binary search
-# Following code runs in O(m+n)
+
 from typing import List
 import math
 
