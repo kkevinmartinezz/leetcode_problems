@@ -4,8 +4,8 @@ return the median of the two sorted arrays.
 
 The overall run time complexity should be O(log (m+n)).
 
-NOTE: Could be made faster, comments said something about binary search
-Following code runs in O(m+n)
+NOTE: Could be made faster, comments said something about binary search.
+Current following code runs in O(m+n)
 '''
 
 
