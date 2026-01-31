@@ -4,45 +4,36 @@ Goal: Given a string s, return the longest palindromic substring in s.
 Note: My solution starts by finding a letter and expanding outwards both to the left and right and checking if they are equal chars.
 If so then it is a palindrome and this is repeated till the case is False.
 I do this as many times as possible and keep the longest palindrome I found thus far.
-I must not forget to handle the edge case of a possible even number palindrome which is only possible for first two chars.
 
-Currently working status: Am failing due to little edge cases I keep failing to consider. Might not be optimal but almost completed.
-passed 88/143 test cases so far.
+I handle the edge case of it possibly being an even palindrome by doing the same method as above but this time starting with side by side letter.
+
+Credit: NEETCODE helped me on this one, used his code to complete and understand where I was going wrong.
 '''
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        if len(s) == 1:
-            return s
-        if len(s) == 2:
-            if s[0] == s[1]:
-                return s
-            else:
-                return s[0]
-        longest = s[:2]
-        middle = 1
-        outwards = 1
-        while middle < len(s)-1:
-            if s[middle] == s[middle+1]:
-                if len(longest) == len(s[middle:middle+2]):
-                    longest = s[middle:middle+2]
-            left = middle - outwards
-            right = middle + outwards
-            if right >= len(s):
-                break
-            if left < 0:
-                left = 0
+        longest = ""
+        longest_length = 0
+        for i in range(len(s)): #Check regularly by expanding outwards, this ultimately checks odd length palindromes
+            l, r = i,i
+            while l >= 0 and r < len(s) and s[l] == s[r]: #check if in bounds and if left and right equate to same char
+                if (r - l + 1) > longest_length: #if length is longer then existing known length of longest palindrome found so far
+                    longest_length = r - l + 1 # length is now the subtraction of the left and right, 1 is added since index starts with 0 not 1
+                    longest = s[l:r+1] #must add one to r since the right side is exclusive
+                l -= 1
+                r += 1
 
-            if s[left] == s[right]: #check left and right chars that outwards amount of chars away from middle
-                if len(s[left:right+1]) >= len(longest):
-                    longest = s[left:right+1]
-                outwards += 1
+            #now copy same thing but starting with left and right being side by side chars
+            #this will ultimately check for even type palindromes starting at the given i in for loop
+            l, r = i, i+1
+            while l >= 0 and r < len(s) and s[l] == s[
+                r]:  # check if in bounds and if left and right equate to same char
+                if (
+                        r - l + 1) > longest_length:  # if length is longer then existing known length of longest palindrome found so far
+                    longest_length = r - l + 1  # length is now the subtraction of the left and right, 1 is added since index starts with 0 not 1
+                    longest = s[l:r + 1]  # must add one to r since the right side is exclusive
+                l -= 1
+                r += 1
 
-            else:
-                outwards = 1
-                middle += 1
-        if len(longest) == 2:
-            if longest[0] != longest[1]:
-                return longest[0]
 
         return longest
 
@@ -50,11 +41,11 @@ class Solution:
 
 def main():
     solution = Solution()
-    # print(solution.longestPalindrome("babad"))
-    # print(solution.longestPalindrome("cbbd"))
-    # print(solution.longestPalindrome("abcba"))
-    # print(solution.longestPalindrome("aaaa"))
-    # print(solution.longestPalindrome("abcda"))
+    print(solution.longestPalindrome("babad"))
+    print(solution.longestPalindrome("cbbd"))
+    print(solution.longestPalindrome("abcba"))
+    print(solution.longestPalindrome("aaaa"))
+    print(solution.longestPalindrome("abcda"))
     print(solution.longestPalindrome("aaabaaaa"))
 if __name__ == '__main__':
     main()
